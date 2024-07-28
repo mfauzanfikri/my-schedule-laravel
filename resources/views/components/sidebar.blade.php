@@ -1,13 +1,9 @@
-@php
-    $path = Request::path();
-@endphp
-
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
         <!-- dashboard -->
         <li class="nav-item">
-            <a class="nav-link {{ $path === '/' ? '' : 'collapse' }}" href="/">
+            <a class="nav-link {{ request()->is('/') ? '' : 'collapse' }}" href="/">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>
