@@ -1,10 +1,8 @@
-@extends('layouts.app')
+<x-layout>
+    <x-slot:title>{{ $title }}</x-slot:title>
 
-@section('title', 'Blank Page')
-
-@section('content')
     <div class="pagetitle">
-        <h1>Blank Page</h1>
+        <h1>{{ $title }}</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -21,7 +19,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Example Card</h5>
-                        <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
+                        <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.
+                        </p>
                     </div>
                 </div>
 
@@ -32,11 +31,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Example Card</h5>
-                        <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
+                        <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.
+                        </p>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-@endsection
+</x-layout>
