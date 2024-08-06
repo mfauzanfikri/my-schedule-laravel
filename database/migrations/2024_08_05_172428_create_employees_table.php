@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->foreignId('employee_position_id')->constrained();
             $table->string('card_id');
             $table->string('name');
-            $table->enum('status', ['active', 'on_leave']);
+            $table->enum('status', ['active', 'on_leave'])->default('active');
             $table->timestamps();
         });
     }
