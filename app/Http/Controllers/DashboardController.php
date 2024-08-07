@@ -7,9 +7,9 @@ use Illuminate\View\View;
 class DashboardController extends Controller {
     public function index(): View {
         $data = [
-            'title' => 'Home'
+            'title' => 'Dashboard'
         ];
 
-        return view('home', $data);
+        return view('dashboard', $data);
     }
 }
