@@ -1,10 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $data = [
-        'title' => 'Home'
-    ];
-    return view('blank-page', $data);
-});
+Route::get('/', [DashboardController::class, 'index']);
