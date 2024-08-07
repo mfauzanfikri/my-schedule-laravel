@@ -12,6 +12,16 @@
         </li>
 
         <li class="nav-item">
+            <x-nav-link href="/" :active="request()->is('/user')">
+                <x-slot:icon>
+                    <i class="bi bi-grid"></i>
+                </x-slot:icon>
+
+                Dashboard
+            </x-nav-link>
+        </li>
+
+        <li class="nav-item">
             <x-nav-link href="/logout" :active="false">
                 <x-slot:icon>
                     <i class="bi bi-box-arrow-left"></i>
