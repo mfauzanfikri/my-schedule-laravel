@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->time('end_time');
             $table->enum('work_type', ['regular', 'shift']);
             $table->enum('work_time', ['regular', 'morning', 'afternoon', 'night']);
+            $table->string('slug')->unique();
             $table->enum('status', ['on_progress', 'approved', 'rejected'])->default('on_progress');
             $table->timestamps();
         });
