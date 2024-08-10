@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EmployeePosition extends Model {
-    use HasFactory;
-
     protected $fillable = [
         'name'
     ];

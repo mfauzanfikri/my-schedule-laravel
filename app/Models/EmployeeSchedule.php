@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmployeeSchedule extends Model {
-    use HasFactory;
-
     protected $fillable = [
         'date',
         'start_time',
