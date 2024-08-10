@@ -6,7 +6,7 @@ if (!class_exists('EmployeeLeaveStatus')) {
         const APPROVED = "approved";
         const REJECTED = "rejected";
 
-        public static function getStatus(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();
@@ -20,7 +20,7 @@ if (!class_exists('EmployeeScheduleStatus')) {
         const APPROVED = "approved";
         const REJECTED = "rejected";
 
-        public static function getStatus(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();
@@ -35,7 +35,7 @@ if (!class_exists('EmployeeScheduleWorkTime')) {
         const AFTERNOON = "afternoon";
         const NIGHT = "night";
 
-        public static function getWorkTimes(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();
@@ -49,7 +49,7 @@ if (!class_exists('EmployeeScheduleWorkType')) {
         const REGULAR = "regular";
         const SHIFT = "shift";
 
-        public static function getWorkTypes(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();
@@ -63,7 +63,7 @@ if (!class_exists('EmployeeStatus')) {
         const ACTIVE = "active";
         const ON_LEAVE = "on_leave";
 
-        public static function getStatus(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();
@@ -72,12 +72,12 @@ if (!class_exists('EmployeeStatus')) {
 }
 
 
-if (!class_exists('UserRole')) {
-    class UserRole {
+if (!class_exists('UserRoles')) {
+    class UserRoles {
         const ADMIN = 'admin';
         const USER = 'user';
 
-        public static function getRoles(): array {
+        public static function list(): array {
             $rc = new ReflectionClass(self::class);
 
             return $rc->getConstants();

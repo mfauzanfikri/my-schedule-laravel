@@ -13,6 +13,7 @@ class EmployeeSchedule extends Model {
         'end_time',
         'work_type',
         'work_time',
+        'slug',
         'status'
     ];
 

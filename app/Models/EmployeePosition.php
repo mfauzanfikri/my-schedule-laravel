@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EmployeePosition extends Model {
     protected $fillable = [
-        'name'
+        'name',
+        'slug'
     ];
 
     public function employees(): HasMany {
