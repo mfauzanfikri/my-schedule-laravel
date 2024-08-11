@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder {
         $user = UserRole::where('slug', Str::slug(UserRoles::USER))->first();
 
         User::factory()->for($admin)->create();
-        User::factory(10)->for($user)->create();
+        User::factory(5)->for($user)->create();
 
 
         $employeePositions = ['staff', 'manager', 'officer'];
