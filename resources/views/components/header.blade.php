@@ -32,8 +32,6 @@
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
 
-    <script src="/assets/vendor/jquery/jquery.min.js"></script>
-
 </head>
 
 <x-navbar></x-navbar>

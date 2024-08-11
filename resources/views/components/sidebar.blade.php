@@ -12,12 +12,12 @@
         </li>
 
         <li class="nav-item">
-            <x-nav-link href="/" :active="request()->is('/user')">
+            <x-nav-link href="/user" :active="request()->is('user')">
                 <x-slot:icon>
-                    <i class="bi bi-grid"></i>
+                    <i class="bi bi-person"></i>
                 </x-slot:icon>
 
-                Dashboard
+                User
             </x-nav-link>
         </li>
 
