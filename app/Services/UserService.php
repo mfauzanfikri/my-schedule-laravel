@@ -32,4 +32,12 @@ class UserService {
     public function find($id) {
         return $this->userRepository->find($id);
     }
+
+    public function findByUsername(string $username) {
+        return $this->userRepository->findByUsername($username);
+    }
+
+    public function findByEmail(string $email) {
+        return $this->userRepository->findByEmail($email);
+    }
 }

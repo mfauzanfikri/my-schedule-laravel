@@ -45,4 +45,12 @@ class UserRepository implements UserRepositoryInterface {
     public function find($id) {
         return User::findOrFail($id);
     }
+
+    public function findByUsername(string $username) {
+        return User::where('username', $username)->findOrFail($username);
+    }
+
+    public function findByEmail($email) {
+        return User::where('email', $email)->findOrFail($email);
+    }
 }
