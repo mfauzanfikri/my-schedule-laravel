@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 15);
             $table->string('slug')->unique();
             $table->timestamps();
         });
@@ -19,8 +19,8 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_role_id')->constrained();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
+            $table->string('username', 30)->unique();
+            $table->string('email', 50)->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

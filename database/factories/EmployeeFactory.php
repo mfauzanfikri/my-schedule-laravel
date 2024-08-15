@@ -16,7 +16,7 @@ class EmployeeFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'card_id' => (string)fake()->unique()->randomNumber(8, true),
+            'card_id' => (string)fake()->unique()->randomNumber(10, true),
             'name' => fake()->name(),
             'status' => EmployeeStatus::ACTIVE
         ];
