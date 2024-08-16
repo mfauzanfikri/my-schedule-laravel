@@ -4,9 +4,10 @@ namespace App\Repositories;
 
 use App\Models\UserRole;
 use App\Repositories\Interfaces\UserRoleRepositoryInterface;
+use Exception;
 
 class UserRoleRepository implements UserRoleRepositoryInterface {
-    public function all() {
+    public function findAll() {
         return UserRole::all();
     }
 
@@ -15,17 +16,33 @@ class UserRoleRepository implements UserRoleRepositoryInterface {
     }
 
     public function update(array $data, $id) {
-        $user = UserRole::findOrFail($id);
+        $user = UserRole::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
         $user->update($data);
         return $user;
     }
 
     public function delete($id) {
-        $user = UserRole::findOrFail($id);
+        $user = UserRole::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
         $user->delete();
     }
 
-    public function find($id) {
-        return UserRole::findOrFail($id);
+    public function getOne($id) {
+        $user = UserRole::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
+        return $user;
     }
 }

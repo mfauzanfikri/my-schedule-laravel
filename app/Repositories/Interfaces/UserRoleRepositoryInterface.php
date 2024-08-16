@@ -9,7 +9,7 @@ interface UserRoleRepositoryInterface {
 
     public function delete($id);
 
-    public function all();
+    public function findAll();
 
-    public function find($id);
+    public function getOne($id);
 }

@@ -5,11 +5,12 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Traits\HasOrderByOptions;
+use Exception;
 
 class UserRepository implements UserRepositoryInterface {
     use HasOrderByOptions;
 
-    public function all(?array $options) {
+    public function findAll(?array $options) {
         if (!$options) {
             return User::all();
         }
@@ -32,25 +33,54 @@ class UserRepository implements UserRepositoryInterface {
     }
 
     public function update(array $data, $id) {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
         $user->update($data);
+
         return $user;
     }
 
     public function delete($id) {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
         $user->delete();
     }
 
-    public function find($id) {
-        return User::findOrFail($id);
+    public function getOne($id) {
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
+        return $user;
     }
 
-    public function findByUsername(string $username) {
-        return User::where('username', $username)->findOrFail($username);
+    public function getByUsername(string $username) {
+        $user = User::where('username', $username)->find($username);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
+        return $user;
     }
 
-    public function findByEmail($email) {
-        return User::where('email', $email)->findOrFail($email);
+    public function getByEmail($email) {
+        $user =  User::where('email', $email)->find($email);
+
+        if (!$user) {
+            throw new Exception('user not found');
+        }
+
+        return $user;
     }
 }

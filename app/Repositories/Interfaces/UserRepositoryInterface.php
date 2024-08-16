@@ -3,7 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 interface UserRepositoryInterface {
-    public function all(?array $options);
+    public function findAll(?array $options);
 
     public function create(array $data);
 
@@ -11,9 +11,9 @@ interface UserRepositoryInterface {
 
     public function delete($id);
 
-    public function find($id);
+    public function getOne($id);
 
-    public function findByUsername(string $username);
+    public function getByUsername(string $username);
 
-    public function findByEmail(string $email);
+    public function getByEmail(string $email);
 }
