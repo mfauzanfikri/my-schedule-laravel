@@ -7,11 +7,13 @@ interface UserRepositoryInterface {
 
     public function create(array $data);
 
-    public function update(array $data, $id);
+    public function createByUserRole(array $data, string $userRoleId);
 
-    public function delete($id);
+    public function update(string|int $id, array $data);
 
-    public function getOne($id);
+    public function delete(string|int $id);
+
+    public function getOne(string|int $id);
 
     public function getByUsername(string $username);
 

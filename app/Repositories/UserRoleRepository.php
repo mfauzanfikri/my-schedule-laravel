@@ -15,7 +15,7 @@ class UserRoleRepository implements UserRoleRepositoryInterface {
         return UserRole::create($data);
     }
 
-    public function update(array $data, $id) {
+    public function update(string|int $id, array $data) {
         $user = UserRole::find($id);
 
         if (!$user) {
@@ -26,7 +26,7 @@ class UserRoleRepository implements UserRoleRepositoryInterface {
         return $user;
     }
 
-    public function delete($id) {
+    public function delete(string|int $id) {
         $user = UserRole::find($id);
 
         if (!$user) {
@@ -36,7 +36,7 @@ class UserRoleRepository implements UserRoleRepositoryInterface {
         $user->delete();
     }
 
-    public function getOne($id) {
+    public function getOne(string|int $id) {
         $user = UserRole::find($id);
 
         if (!$user) {

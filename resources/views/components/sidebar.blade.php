@@ -12,12 +12,12 @@
         </li>
 
         <li class="nav-item">
-            <x-nav-link href="/user" :active="request()->is('user')">
+            <x-nav-link href="/users" :active="request()->is('users')">
                 <x-slot:icon>
                     <i class="bi bi-person"></i>
                 </x-slot:icon>
 
-                User
+                Users
             </x-nav-link>
         </li>
 

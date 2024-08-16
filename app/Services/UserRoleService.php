@@ -14,19 +14,19 @@ class UserRoleService {
         return $this->userRoleRepository->create($data);
     }
 
-    public function update(array $data, $id) {
-        return $this->userRoleRepository->update($data, $id);
+    public function update(string|int $id, array $data) {
+        return $this->userRoleRepository->update($id, $data);
     }
 
-    public function delete($id) {
+    public function delete(string|int $id) {
         return $this->userRoleRepository->delete($id);
     }
 
-    public function all() {
-        return $this->userRoleRepository->all();
+    public function findAll() {
+        return $this->userRoleRepository->findAll();
     }
 
-    public function find($id) {
-        return $this->userRoleRepository->find($id);
+    public function getOne(string|int $id) {
+        return $this->userRoleRepository->getOne($id);
     }
 }
