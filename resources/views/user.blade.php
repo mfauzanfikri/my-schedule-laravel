@@ -42,6 +42,12 @@
                             </div>
                         @endif
 
+                        @if (session()->has('warning'))
+                            <div class="alert alert-warning">
+                                <p class="mb-0">{{ session()->get('warning') }}</p>
+                            </div>
+                        @endif
+
                         <div>
                             <table id="user-table" class="table table-striped">
                                 <thead>
@@ -132,7 +138,7 @@
     <div class="modal fade" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/users/update" autocomplete="off">
+            <form action="/users/update" method="POST" autocomplete="off">
                 @csrf
 
                 <input type="hidden" name="id">
@@ -158,7 +164,7 @@
                             <div>
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password"
-                                    maxlength="10" required>
+                                    maxlength="10" autocomplete="new-password">
                             </div>
                         </div>
                     </div>
@@ -230,7 +236,6 @@
             });
 
             createModalForm.on('change', () => {
-
                 if (createUserData.username && createUserData.email && createUserData.password) {
                     createModalSubmitButton.removeAttr('disabled');
                 } else {
@@ -244,7 +249,7 @@
                 createUserData.password = null;
 
                 createModalSubmitButton.attr('disabled', 'true');
-            })
+            });
 
             $('#create-modal form input[name="username"]').on('change', (e) => {
                 const value = e.target.value.trim();
@@ -295,6 +300,7 @@
             const editIdInput = $('#edit-modal form input[name="id"]');
             const editUsernameInput = $('#edit-modal form input[name="username"]');
             const editEmailInput = $('#edit-modal form input[name="email"]');
+            const editPasswordInput = $('#edit-modal form input[name="password"]');
 
             const editUserData = {
                 username: null,
@@ -322,7 +328,63 @@
                 editEmailInput.attr('placeholder', email);
             });
 
-            // TODO: add disabled submit button logic
+            editModalForm.on('change', () => {
+                if (editUserData.username || editUserData.email || editUserData.password) {
+                    editModalSubmitButton.removeAttr('disabled');
+                } else {
+                    editModalSubmitButton.attr('disabled', 'true');
+                }
+            });
+
+            editModalForm.on('reset', () => {
+                editUserData.username = null;
+                editUserData.email = null;
+                editUserData.password = null;
+
+                editModalSubmitButton.attr('disabled', 'true');
+            });
+
+            editUsernameInput.on('change', ({
+                target
+            }) => {
+                const value = target.value.trim();
+
+                if (value === '') {
+                    editUserData.username = null;
+
+                    return;
+                }
+
+                editUserData.username = value;
+            });
+
+            editEmailInput.on('change', ({
+                target
+            }) => {
+                const value = target.value.trim();
+
+                if (value === '' || !validator.isEmail(value)) {
+                    editUserData.email = null;
+
+                    return;
+                }
+
+                editUserData.email = value;
+            });
+
+            editPasswordInput.on('change', ({
+                target
+            }) => {
+                const value = target.value;
+
+                if (value === '') {
+                    editUserData.password = null;
+
+                    return;
+                }
+
+                editUserData.password = value;
+            });
         </script>
 
         <script>

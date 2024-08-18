@@ -9,4 +9,5 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::prefix('/users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/store', [UserController::class, 'store']);
+    Route::post('/update', [UserController::class, 'update']);
 });

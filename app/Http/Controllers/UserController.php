@@ -6,7 +6,9 @@ use App\Services\UserRoleService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Throwable;
 
 class UserController extends Controller {
     public function __construct(protected UserService $userService, protected UserRoleService $userRoleService) {
@@ -41,5 +43,30 @@ class UserController extends Controller {
         ], $userRole->id);
 
         return redirect()->back()->with('success', 'User created.');
+    }
+
+    public function update(Request $request): RedirectResponse {
+        $validated = $request->validate([
+            'id' => 'required',
+            'username' => 'nullable|unique:users,username',
+            'email' => 'nullable|email|unique:users,email',
+            'password' => 'nullable'
+        ]);
+
+        try {
+            $user = $this->userService->getOne($validated['id']);
+        } catch (Throwable $e) {
+            abort(404);
+        }
+
+        $updateData = Arr::except(Arr::whereNotNull($validated), 'id');
+
+        if (empty($updateData)) {
+            return redirect()->back()->with('warning', 'Nothing to update, please fill atleast one field to update.');
+        }
+
+        $user->update($updateData);
+
+        return redirect()->back()->with('success', 'User updated.');
     }
 }
