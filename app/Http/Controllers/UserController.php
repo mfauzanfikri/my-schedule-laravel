@@ -53,11 +53,7 @@ class UserController extends Controller {
             'password' => 'nullable'
         ]);
 
-        try {
-            $user = $this->userService->getOne($validated['id']);
-        } catch (Throwable $e) {
-            abort(404);
-        }
+        $id = $validated['id'];
 
         $updateData = Arr::except(Arr::whereNotNull($validated), 'id');
 
@@ -65,8 +61,28 @@ class UserController extends Controller {
             return redirect()->back()->with('warning', 'Nothing to update, please fill atleast one field to update.');
         }
 
-        $user->update($updateData);
+        try {
+            $this->userService->update($updateData, $id);
+        } catch (Throwable $e) {
+            abort(404);
+        }
 
         return redirect()->back()->with('success', 'User updated.');
+    }
+
+    public function destroy(Request $request) {
+        $validated = $request->validate([
+            'id' => 'required'
+        ]);
+
+        $id = $validated['id'];
+
+        try {
+            $this->userService->delete($id);
+        } catch (Throwable $e) {
+            abort(404);
+        }
+
+        return redirect()->back()->with('success', 'User deleted.');
     }
 }
