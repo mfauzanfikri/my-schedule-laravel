@@ -16,33 +16,33 @@ class UserRoleRepository implements UserRoleRepositoryInterface {
     }
 
     public function update(string|int $id, array $data) {
-        $user = UserRole::find($id);
+        $userRole = UserRole::find($id);
 
-        if (!$user) {
-            throw new Exception('user not found');
+        if (!$userRole) {
+            throw new Exception('userRole not found');
         }
 
-        $user->update($data);
-        return $user;
+        $userRole->update($data);
+        return $userRole;
     }
 
     public function delete(string|int $id) {
-        $user = UserRole::find($id);
+        $userRole = UserRole::find($id);
 
-        if (!$user) {
-            throw new Exception('user not found');
+        if (!$userRole) {
+            throw new Exception('userRole not found');
         }
 
-        $user->delete();
+        $userRole->delete();
     }
 
     public function getOne(string|int $id) {
-        $user = UserRole::find($id);
+        $userRole = UserRole::find($id);
 
-        if (!$user) {
-            throw new Exception('user not found');
+        if (!$userRole) {
+            throw new Exception('userRole not found');
         }
 
-        return $user;
+        return $userRole;
     }
 }
