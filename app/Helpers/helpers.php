@@ -57,11 +57,23 @@ if (!class_exists('EmployeeScheduleWorkType')) {
     }
 }
 
-
 if (!class_exists('EmployeeStatus')) {
     class EmployeeStatus {
         const ACTIVE = "active";
         const ON_LEAVE = "on_leave";
+
+        public static function list(): array {
+            $rc = new ReflectionClass(self::class);
+
+            return $rc->getConstants();
+        }
+    }
+}
+
+if (!class_exists('UserRoles')) {
+    class UserRoles {
+        const ADMIN = "admin";
+        const USER = "USER";
 
         public static function list(): array {
             $rc = new ReflectionClass(self::class);
