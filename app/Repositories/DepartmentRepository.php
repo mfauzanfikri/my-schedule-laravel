@@ -8,7 +8,7 @@ use Exception;
 
 class DepartmentRepository implements DepartmentRepositoryInterface {
     public function findAll() {
-        return Department::all();
+        return Department::latest()->get();
     }
 
     public function create(array $data) {
@@ -23,6 +23,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface {
         }
 
         $department->update($data);
+
         return $department;
     }
 
@@ -47,6 +48,6 @@ class DepartmentRepository implements DepartmentRepositoryInterface {
     }
 
     public function findBySlug(string $slug) {
-        return Department::query()->where('slug', $slug)->first();
+        return Department::where('slug', $slug)->first();
     }
 }

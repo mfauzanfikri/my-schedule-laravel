@@ -31,6 +31,6 @@ class DepartmentService {
     }
 
     public function findBySlug(string $slug) {
-        return $this->findBySlug($slug);
+        return $this->departmentRepository->findBySlug($slug);
     }
 }

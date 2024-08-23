@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item active">User</li>
+                <li class="breadcrumb-item active">Department</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-title">User List</h5>
+                            <h5 class="card-title">Department List</h5>
                             <div class="d-flex align-items-center">
                                 <button type="button" id="create-btn" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#create-modal">
@@ -54,36 +54,36 @@
                             </div>
                         @endif
 
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p class="mb-0">{{ session()->get('error') }}</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <div>
-                            <table id="user-table" class="table table-striped">
+                            <table id="department-table" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Username</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Name</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
-                                        @if ($user->userRole->name === 'admin')
-                                            @continue
-                                        @endif
+                                    @foreach ($departments as $department)
                                         <tr>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->email }}</td>
+                                            <td>{{ Str::title($department->name) }}</td>
                                             <td>
                                                 <div class="d-flex gap-1 justify-content-center">
                                                     <button type="button" class="btn btn-warning edit-btn"
                                                         data-bs-toggle="modal" data-bs-target="#edit-modal"
-                                                        data-id="{{ $user->id }}"
-                                                        data-username="{{ $user->username }}"
-                                                        data-email="{{ $user->email }}">
-                                                        Edit
-                                                    </button>
+                                                        data-id="{{ $department->id }}"
+                                                        data-name="{{ Str::title($department->name) }}"> Edit </button>
                                                     <button type="button" class="btn btn-danger delete-btn"
                                                         data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                                        data-id="{{ $user->id }}"
-                                                        data-username="{{ $user->username }}">
+                                                        data-id="{{ $department->id }}"
+                                                        data-name="{{ Str::title($department->name) }}">
                                                         Delete
                                                     </button>
                                                 </div>
@@ -103,30 +103,20 @@
     <div class="modal fade" id="create-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/users/store" autocomplete="off" method="POST">
+            <form action="/departments/store" method="POST" autocomplete="off">
                 @csrf
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create User</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Department</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="d-flex flex-column gap-3">
                             <div>
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username"
-                                    placeholder="username" maxlength="20" required>
-                            </div>
-                            <div>
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="name@example.com" maxlength="50" required>
-                            </div>
-                            <div>
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                    maxlength="10" autocomplete="new-password" required>
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="name" maxlength="20" required>
                             </div>
                         </div>
                     </div>
@@ -144,33 +134,23 @@
     <div class="modal fade" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/users/update" method="POST" autocomplete="off">
+            <form action="/departments/update" method="POST" autocomplete="off">
                 @csrf
 
                 <input type="hidden" name="id">
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit User</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Department</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="d-flex flex-column gap-3">
                             <div>
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username"
-                                    placeholder="username">
-                            </div>
-                            <div>
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="name@example.com">
-                            </div>
-                            <div>
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                    maxlength="10" autocomplete="new-password">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="name">
                             </div>
                         </div>
                     </div>
@@ -188,18 +168,18 @@
     <div class="modal fade" id="delete-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="" autocomplete="off">
+            <form action="/departments/delete" method="POST" autocomplete="off">
                 @csrf
                 <input type="hidden" name="id">
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete User</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Department</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure to delete user with username of <strong id="tobe-deleted-info"></strong>?</p>
+                        <p>Are you sure to delete department with name of <strong id="tobe-deleted-info"></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -212,7 +192,7 @@
 
     <x-slot:script>
         <script>
-            $('#user-table').DataTable({
+            $('#department-table').DataTable({
                 order: []
             });
         </script>
@@ -225,24 +205,20 @@
             const createModalButton = $('#create-btn');
             const createModalSubmitButton = $('#create-modal form button[type="submit"]');
 
-            const createUserData = {
-                username: null,
-                email: null,
-                password: null
+            const createDepartmentData = {
+                name: null,
             };
 
             createModalButton.on('click', () => {
                 createModalForm[0].reset();
 
-                if (createUserData.username || createUserData.email || createUserData.password) {
-                    createUserData.username = null;
-                    createUserData.email = null;
-                    createUserData.password = null;
+                if (createDepartmentData.name) {
+                    createDepartmentData.name = null;
                 }
             });
 
             createModalForm.on('change', () => {
-                if (createUserData.username && createUserData.email && createUserData.password) {
+                if (createDepartmentData.name) {
                     createModalSubmitButton.removeAttr('disabled');
                 } else {
                     createModalSubmitButton.attr('disabled', 'true');
@@ -250,50 +226,22 @@
             });
 
             createModalForm.on('reset', () => {
-                createUserData.username = null;
-                createUserData.email = null;
-                createUserData.password = null;
+                createDepartmentData.name = null;
 
                 createModalSubmitButton.attr('disabled', 'true');
             });
 
-            $('#create-modal form input[name="username"]').on('change', (e) => {
+            $('#create-modal form input[name="name"]').on('change', (e) => {
                 const value = e.target.value.trim();
 
                 if (value === '') {
-                    createUserData.username = null;
+                    createDepartmentData.name = null;
 
                     return;
                 }
 
-                createUserData.username = value;
+                createDepartmentData.name = value;
                 e.target.value = value;
-            });
-
-            $('#create-modal form input[name="email"]').on('change', (e) => {
-                const value = e.target.value.trim();
-
-                if (value === '' || !validator.isEmail(value)) {
-                    createUserData.email = null;
-                    createModalSubmitButton.attr('disabled', 'true');
-
-                    return;
-                }
-
-                createUserData.email = value;
-            });
-
-            $('#create-modal form input[name="password"]').on('change', (e) => {
-                const value = e.target.value;
-
-                if (value === '') {
-                    createUserData.password = null;
-                    createModalSubmitButton.attr('disabled', 'true');
-
-                    return;
-                }
-
-                createUserData.password = value;
             });
         </script>
 
@@ -304,14 +252,10 @@
             const editModalSubmitButton = $('#edit-modal form button[type="submit"]');
 
             const editIdInput = $('#edit-modal form input[name="id"]');
-            const editUsernameInput = $('#edit-modal form input[name="username"]');
-            const editEmailInput = $('#edit-modal form input[name="email"]');
-            const editPasswordInput = $('#edit-modal form input[name="password"]');
+            const editNameInput = $('#edit-modal form input[name="name"]');
 
-            const editUserData = {
-                username: null,
-                email: null,
-                password: null
+            const editDepartmentData = {
+                name: null,
             };
 
             editModalButton.on('click', ({
@@ -319,23 +263,19 @@
             }) => {
                 editModalForm[0].reset();
 
-                if (editUserData.username || editUserData.email || password.null) {
-                    editUserData.username = null;
-                    editUserData.email = null;
-                    editUserData.password = null;
+                if (editDepartmentData.name) {
+                    editDepartmentData.name = null;
                 }
 
                 const id = editModalButton.data('id');
-                const username = editModalButton.data('username');
-                const email = editModalButton.data('email');
+                const name = editModalButton.data('name');
 
                 editIdInput.val(id);
-                editUsernameInput.attr('placeholder', username);
-                editEmailInput.attr('placeholder', email);
+                editNameInput.attr('placeholder', name);
             });
 
             editModalForm.on('change', () => {
-                if (editUserData.username || editUserData.email || editUserData.password) {
+                if (editDepartmentData.name) {
                     editModalSubmitButton.removeAttr('disabled');
                 } else {
                     editModalSubmitButton.attr('disabled', 'true');
@@ -343,53 +283,23 @@
             });
 
             editModalForm.on('reset', () => {
-                editUserData.username = null;
-                editUserData.email = null;
-                editUserData.password = null;
+                editDepartmentData.name = null;
 
                 editModalSubmitButton.attr('disabled', 'true');
             });
 
-            editUsernameInput.on('change', ({
+            editNameInput.on('change', ({
                 target
             }) => {
                 const value = target.value.trim();
 
                 if (value === '') {
-                    editUserData.username = null;
+                    editDepartmentData.name = null;
 
                     return;
                 }
 
-                editUserData.username = value;
-            });
-
-            editEmailInput.on('change', ({
-                target
-            }) => {
-                const value = target.value.trim();
-
-                if (value === '' || !validator.isEmail(value)) {
-                    editUserData.email = null;
-
-                    return;
-                }
-
-                editUserData.email = value;
-            });
-
-            editPasswordInput.on('change', ({
-                target
-            }) => {
-                const value = target.value;
-
-                if (value === '') {
-                    editUserData.password = null;
-
-                    return;
-                }
-
-                editUserData.password = value;
+                editDepartmentData.name = value;
             });
         </script>
 
@@ -400,11 +310,11 @@
 
             deleteModalButton.on('click', () => {
                 const id = deleteModalButton.data('id');
-                const username = deleteModalButton.data('username')
+                const name = deleteModalButton.data('name')
 
                 deleteIdInput.val(id);
 
-                $('#tobe-deleted-info').text(username);
+                $('#tobe-deleted-info').text(name);
             });
         </script>
     </x-slot:script>

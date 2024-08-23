@@ -8,7 +8,7 @@ use Exception;
 
 class UserRoleRepository implements UserRoleRepositoryInterface {
     public function findAll() {
-        return UserRole::all();
+        return UserRole::latest()->get();
     }
 
     public function create(array $data) {

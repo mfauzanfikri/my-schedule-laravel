@@ -8,7 +8,7 @@ use Exception;
 
 class EmployeePositionRepository implements EmployeePositionRepositoryInterface {
     public function findAll() {
-        return EmployeePosition::all();
+        return EmployeePosition::latest()->get();
     }
 
     public function create(array $data) {
