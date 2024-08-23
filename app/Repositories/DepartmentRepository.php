@@ -45,4 +45,8 @@ class DepartmentRepository implements DepartmentRepositoryInterface {
 
         return $department;
     }
+
+    public function findBySlug(string $slug) {
+        return Department::query()->where('slug', $slug)->first();
+    }
 }

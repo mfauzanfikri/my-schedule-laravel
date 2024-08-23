@@ -12,4 +12,6 @@ interface DepartmentRepositoryInterface {
     public function findAll();
 
     public function getOne(string|int $id);
+
+    public function findBySlug(string $slug);
 }

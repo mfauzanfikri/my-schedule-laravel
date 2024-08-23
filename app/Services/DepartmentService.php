@@ -29,4 +29,8 @@ class DepartmentService {
     public function getOne(string|int $id) {
         return $this->departmentRepository->getOne($id);
     }
+
+    public function findBySlug(string $slug) {
+        return $this->findBySlug($slug);
+    }
 }
