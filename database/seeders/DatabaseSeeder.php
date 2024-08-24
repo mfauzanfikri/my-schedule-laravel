@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder {
         User::factory(5)->for($user)->create();
 
 
-        $employeePositions = ['staff', 'manager', 'officer'];
+        $employeePositions = ['Staff', 'Manager', 'Officer'];
 
         foreach ($employeePositions as $employeePosition) {
             EmployeePosition::create([
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder {
             ]);
         }
 
-        $departments = ['human resource', 'public relation', 'sales', 'marketing', 'information technology'];
+        $departments = ['Human Resource', 'Public Relation', 'Sales', 'Marketing', 'Information Technology'];
 
         foreach ($departments as $department) {
             Department::create([

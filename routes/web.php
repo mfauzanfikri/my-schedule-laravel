@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,11 @@ Route::prefix('/departments')->group(function () {
     Route::post('/store', [DepartmentController::class, 'store']);
     Route::post('/update', [DepartmentController::class, 'update']);
     Route::post('/delete', [DepartmentController::class, 'delete']);
+});
+
+Route::prefix('/employee-positions')->group(function () {
+    Route::get('/', [EmployeePositionController::class, 'index']);
+    Route::post('/store', [EmployeePositionController::class, 'store']);
+    Route::post('/update', [EmployeePositionController::class, 'update']);
+    Route::post('/delete', [EmployeePositionController::class, 'delete']);
 });

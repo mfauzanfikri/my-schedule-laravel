@@ -29,4 +29,8 @@ class EmployeePositionService {
     public function getOne(string|int $id) {
         return $this->employeePositionRepository->getOne($id);
     }
+
+    public function findBySlug(string $slug) {
+        return $this->employeePositionRepository->findBySlug($slug);
+    }
 }

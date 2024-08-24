@@ -45,4 +45,8 @@ class EmployeePositionRepository implements EmployeePositionRepositoryInterface 
 
         return $employeePosition;
     }
+
+    public function findBySlug(string $slug) {
+        return EmployeePosition::where('slug', $slug)->first();
+    }
 }

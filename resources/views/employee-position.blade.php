@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item active">Department</li>
+                <li class="breadcrumb-item active">Employee Position</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-title">Department List</h5>
+                            <h5 class="card-title">Employee Position List</h5>
                             <div class="d-flex align-items-center">
                                 <button type="button" id="create-btn" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#create-modal">
@@ -63,7 +63,7 @@
                         @endif
 
                         <div>
-                            <table id="department-table" class="table table-striped">
+                            <table id="employee-position-table" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Name</th>
@@ -71,19 +71,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($departments as $department)
+                                    @foreach ($employeePositions as $employeePosition)
                                         <tr>
-                                            <td>{{ $department->name }}</td>
+                                            <td>{{ $employeePosition->name }}</td>
                                             <td>
                                                 <div class="d-flex gap-1 justify-content-center">
                                                     <button type="button" class="btn btn-warning edit-btn"
                                                         data-bs-toggle="modal" data-bs-target="#edit-modal"
-                                                        data-id="{{ $department->id }}"
-                                                        data-name="{{ $department->name }}"> Edit </button>
+                                                        data-id="{{ $employeePosition->id }}"
+                                                        data-name="{{ $employeePosition->name }}"> Edit
+                                                    </button>
                                                     <button type="button" class="btn btn-danger delete-btn"
                                                         data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                                        data-id="{{ $department->id }}"
-                                                        data-name="{{ $department->name }}">
+                                                        data-id="{{ $employeePosition->id }}"
+                                                        data-name="{{ $employeePosition->name }}">
                                                         Delete
                                                     </button>
                                                 </div>
@@ -103,12 +104,12 @@
     <div class="modal fade" id="create-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/departments/store" method="POST" autocomplete="off">
+            <form action="/employee-positions/store" method="POST" autocomplete="off">
                 @csrf
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Department</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Employee Position</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -134,14 +135,14 @@
     <div class="modal fade" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/departments/update" method="POST" autocomplete="off">
+            <form action="/employee-positions/update" method="POST" autocomplete="off">
                 @csrf
 
                 <input type="hidden" name="id">
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Department</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Employee Position</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -168,18 +169,19 @@
     <div class="modal fade" id="delete-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/departments/delete" method="POST" autocomplete="off">
+            <form action="/employee-positions/delete" method="POST" autocomplete="off">
                 @csrf
                 <input type="hidden" name="id">
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Department</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Employee Position</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure to delete department with name of <strong id="tobe-deleted-info"></strong>?</p>
+                        <p>Are you sure to delete employee position with name of <strong
+                                id="tobe-deleted-info"></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -192,7 +194,7 @@
 
     <x-slot:script>
         <script>
-            $('#department-table').DataTable({
+            $('#employee-position-table').DataTable({
                 order: []
             });
         </script>
@@ -205,20 +207,20 @@
             const createModalButton = $('#create-btn');
             const createModalSubmitButton = $('#create-modal form button[type="submit"]');
 
-            const createDepartmentData = {
+            const createData = {
                 name: null,
             };
 
             createModalButton.on('click', () => {
                 createModalForm[0].reset();
 
-                if (createDepartmentData.name) {
-                    createDepartmentData.name = null;
+                if (createData.name) {
+                    createData.name = null;
                 }
             });
 
             createModalForm.on('change', () => {
-                if (createDepartmentData.name) {
+                if (createData.name) {
                     createModalSubmitButton.removeAttr('disabled');
                 } else {
                     createModalSubmitButton.attr('disabled', 'true');
@@ -226,7 +228,7 @@
             });
 
             createModalForm.on('reset', () => {
-                createDepartmentData.name = null;
+                createData.name = null;
 
                 createModalSubmitButton.attr('disabled', 'true');
             });
@@ -235,12 +237,12 @@
                 const value = e.target.value.trim();
 
                 if (value === '') {
-                    createDepartmentData.name = null;
+                    createData.name = null;
 
                     return;
                 }
 
-                createDepartmentData.name = value;
+                createData.name = value;
                 e.target.value = value;
             });
         </script>
@@ -254,7 +256,7 @@
             const editIdInput = $('#edit-modal form input[name="id"]');
             const editNameInput = $('#edit-modal form input[name="name"]');
 
-            const editDepartmentData = {
+            const editData = {
                 name: null,
             };
 
@@ -263,8 +265,8 @@
             }) => {
                 editModalForm[0].reset();
 
-                if (editDepartmentData.name) {
-                    editDepartmentData.name = null;
+                if (editData.name) {
+                    editData.name = null;
                 }
 
                 const id = editModalButton.data('id');
@@ -275,7 +277,7 @@
             });
 
             editModalForm.on('change', () => {
-                if (editDepartmentData.name) {
+                if (editData.name) {
                     editModalSubmitButton.removeAttr('disabled');
                 } else {
                     editModalSubmitButton.attr('disabled', 'true');
@@ -283,7 +285,7 @@
             });
 
             editModalForm.on('reset', () => {
-                editDepartmentData.name = null;
+                editData.name = null;
 
                 editModalSubmitButton.attr('disabled', 'true');
             });
@@ -294,12 +296,12 @@
                 const value = target.value.trim();
 
                 if (value === '') {
-                    editDepartmentData.name = null;
+                    editData.name = null;
 
                     return;
                 }
 
-                editDepartmentData.name = value;
+                editData.name = value;
             });
         </script>
 

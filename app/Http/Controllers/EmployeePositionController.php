@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DepartmentService;
+use App\Services\EmployeePositionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
-class DepartmentController extends Controller {
-    public function __construct(private DepartmentService $departmentService) {
+class EmployeePositionController extends Controller {
+    public function __construct(private EmployeePositionService $employeePositionService) {
     }
 
     public function index(): View {
-        $departments = $this->departmentService->findAll();
+        $employeePositions = $this->employeePositionService->findAll();
 
         $data = [
-            'title' => 'Departments',
-            'departments' => $departments
+            'title' => 'Employee Positions',
+            'employeePositions' => $employeePositions
         ];
 
-        return view('department', $data);
+        return view('employee-position', $data);
     }
 
     public function store(Request $request): RedirectResponse {
@@ -36,8 +36,8 @@ class DepartmentController extends Controller {
 
         $slug = Str::slug($name);
 
-        if ($this->departmentService->findBySlug($slug)) {
-            return redirect()->back()->with('error', 'Department already exists.');
+        if ($this->employeePositionService->findBySlug($slug)) {
+            return redirect()->back()->with('error', 'Employee position already exists.');
         }
 
         $createData = [
@@ -45,15 +45,15 @@ class DepartmentController extends Controller {
             'slug' => $slug
         ];
 
-        $this->departmentService->create($createData);
+        $this->employeePositionService->create($createData);
 
-        return redirect()->back()->with('success', 'Department created.');
+        return redirect()->back()->with('success', 'Employee position created.');
     }
 
     public function update(Request $request): RedirectResponse {
         $request->validate([
             'id' => 'required|numeric',
-            'name' => 'nullable|unique:departments,name'
+            'name' => 'nullable|unique:employeePositions,name'
         ]);
 
         if (!$request->post('name')) {
@@ -74,9 +74,9 @@ class DepartmentController extends Controller {
             'slug' => $slug
         ];
 
-        $this->departmentService->update($id, $updateData);
+        $this->employeePositionService->update($id, $updateData);
 
-        return redirect()->back()->with('success', 'Department updated.');
+        return redirect()->back()->with('success', 'Employee position updated.');
     }
 
     public function delete(Request $request): RedirectResponse {
@@ -86,8 +86,8 @@ class DepartmentController extends Controller {
 
         $id = $request->post('id');
 
-        $this->departmentService->delete($id);
+        $this->employeePositionService->delete($id);
 
-        return redirect()->back()->with('success', 'Department deleted.');
+        return redirect()->back()->with('success', 'Employee position deleted.');
     }
 }
