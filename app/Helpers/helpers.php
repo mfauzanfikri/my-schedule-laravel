@@ -73,7 +73,7 @@ if (!class_exists('EmployeeStatus')) {
 if (!class_exists('UserRoles')) {
     class UserRoles {
         const ADMIN = "admin";
-        const USER = "USER";
+        const USER = "user";
 
         public static function list(): array {
             $rc = new ReflectionClass(self::class);
