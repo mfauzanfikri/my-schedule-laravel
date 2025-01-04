@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmployeeSchedule extends Model {
     protected $fillable = [
+        'employee_id',
         'date',
         'start_time',
         'end_time',
