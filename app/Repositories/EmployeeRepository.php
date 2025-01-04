@@ -3,38 +3,27 @@
 namespace App\Repositories;
 
 use App\Models\Employee;
-use App\Models\EmployeeRole;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
-use App\Repositories\Traits\HasOrderByOptions;
 use Exception;
 
-class EmployeeRepository implements EmployeeRepositoryInterface {
-    use HasOrderByOptions;
-
-    public function findAll(?array $options) {
-        if (!$options) {
-            return Employee::with(['user', 'department', 'employeePosition'])->get();
-        }
-
-        $employees = Employee::with(['user', 'department', 'employeePosition']);
-
-        if (isset($options['order_by'])) {
-            if ($options['order_by'] === static::ORDER_BY_LATEST) {
-                $employees->latest();
-            } else if ($options['order_by'] === static::ORDER_BY_OLDEST) {
-                $employees->oldest();
-            }
-        }
+class EmployeeRepository implements EmployeeRepositoryInterface
+{
+    public function findAll(?array $options)
+    {
+        // TODO: implement $options parameter
+        $employees = Employee::with(['user', 'department', 'employeePosition'])->latest();
 
         return $employees->get();
     }
 
-    public function create(array $data, string|int $userId, string|int $departmentId, string|int $employeePositionId) {
+    public function create(array $data, string|int $userId, string|int $departmentId, string|int $employeePositionId)
+    {
         // TODO: create employee based on user, department, and employeePosition
         return Employee::create($data);
     }
 
-    public function update(string|int $id, array $data) {
+    public function update(string|int $id, array $data)
+    {
         $employee = Employee::find($id);
 
         if (!$employee) {
@@ -46,7 +35,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface {
         return $employee;
     }
 
-    public function delete(string|int $id) {
+    public function delete(string|int $id)
+    {
         $employee = Employee::find($id);
 
         if (!$employee) {
@@ -56,7 +46,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface {
         $employee->delete();
     }
 
-    public function getOne(string|int $id) {
+    public function getOne(string|int $id)
+    {
         $employee = Employee::with(['user', 'department', 'employeePosition'])->find($id);
 
         if (!$employee) {
@@ -66,11 +57,13 @@ class EmployeeRepository implements EmployeeRepositoryInterface {
         return $employee;
     }
 
-    public function getByUser(string|int $userId) {
+    public function getByUser(string|int $userId)
+    {
         // TODO: implementation
     }
 
-    public function getByCardId(string $cardId) {
+    public function getByCardId(string $cardId)
+    {
         // TODO: implementation
     }
 }
