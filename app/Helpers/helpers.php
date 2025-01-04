@@ -61,6 +61,7 @@ if (!class_exists('EmployeeStatus')) {
     class EmployeeStatus {
         const ACTIVE = "active";
         const ON_LEAVE = "on_leave";
+        const RESIGNED = "resigned";
 
         public static function list(): array {
             $rc = new ReflectionClass(self::class);
