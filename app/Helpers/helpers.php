@@ -82,3 +82,16 @@ if (!class_exists('UserRoles')) {
         }
     }
 }
+
+if (!class_exists('UserStatus')) {
+    class UserStatus {
+        const ON_PROCESS = "on_process";
+        const ACTIVE = "active";
+
+        public static function list(): array {
+            $rc = new ReflectionClass(self::class);
+
+            return $rc->getConstants();
+        }
+    }
+}
