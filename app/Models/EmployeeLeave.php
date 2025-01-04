@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmployeeLeave extends Model {
     protected $fillable = [
+        'employee_id',
+        'document_number',
         'start_date',
         'end_date',
-        'slug',
         'status'
     ];
 

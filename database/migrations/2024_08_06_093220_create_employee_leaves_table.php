@@ -12,9 +12,9 @@ return new class extends Migration {
         Schema::create('employee_leaves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained();
+            $table->string('document_number')->unique();
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('slug')->unique();
             $table->enum('status', ['on_progress', 'approved', 'rejected'])->default('on_progress');
             $table->timestamps();
         });
