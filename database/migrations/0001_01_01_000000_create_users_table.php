@@ -8,7 +8,8 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void {
+    public function up(): void
+    {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 15);
@@ -22,6 +23,7 @@ return new class extends Migration {
             $table->string('username', 30)->unique();
             $table->string('email', 50)->unique();
             $table->string('password');
+            $table->enum('status', ['active', 'on_process'])->default('on_process');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -45,7 +47,8 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void {
+    public function down(): void
+    {
         Schema::dropIfExists('users');
         Schema::dropIfExists('user_roles');
         Schema::dropIfExists('password_reset_tokens');
