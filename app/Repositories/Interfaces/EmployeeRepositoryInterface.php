@@ -13,7 +13,7 @@ interface EmployeeRepositoryInterface {
 
     public function getOne(string|int $id);
 
-    public function getByUser(string|int $userId);
+    public function getByUserId(string|int $userId);
 
     public function getByCardId(string $cardId);
 }

@@ -57,7 +57,7 @@ class EmployeeLeaveRepository implements EmployeeLeaveRepositoryInterface
         return $employee;
     }
 
-    public function getByUser(string|int $userId)
+    public function getByUserId(string|int $userId)
     {
         // TODO: implementation
     }
