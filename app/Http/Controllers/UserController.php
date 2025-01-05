@@ -15,9 +15,7 @@ class UserController extends Controller {
     }
 
     public function index(): View {
-        $users = $this->userService->findAll([
-            'order_by' => $this->userService::ORDER_BY_LATEST
-        ]);
+        $users = $this->userService->findAll();
 
         $data = [
             'title' => 'Users',
