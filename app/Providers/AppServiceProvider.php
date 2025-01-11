@@ -13,15 +13,15 @@ use App\Repositories\Interfaces\EmployeePositionRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeScheduleRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Repositories\Interfaces\UserRoleRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\UserRepository;
-use App\Repositories\UserRoleRepository;
+use App\Repositories\RoleRepository;
 use App\Services\DepartmentService;
 use App\Services\EmployeeLeaveService;
 use App\Services\EmployeePositionService;
 use App\Services\EmployeeScheduleService;
 use App\Services\EmployeeService;
-use App\Services\UserRoleService;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,9 +37,9 @@ class AppServiceProvider extends ServiceProvider
             return new UserService($app->make(UserRepositoryInterface::class));
         });
 
-        $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
-        $this->app->bind(UserRoleService::class, function ($app) {
-            return new UserRoleService($app->make(UserRoleRepositoryInterface::class));
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        $this->app->bind(RoleService::class, function ($app) {
+            return new RoleService($app->make(RoleRepositoryInterface::class));
         });
 
         $this->app->bind(DepartmentRepositoryInterface::class, DepartmentRepository::class);

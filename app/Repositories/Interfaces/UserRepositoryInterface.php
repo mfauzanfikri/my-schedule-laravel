@@ -7,7 +7,7 @@ interface UserRepositoryInterface {
 
     public function create(array $data);
 
-    public function createByUserRole(array $data, string $userRoleId);
+    public function createByRole(array $data, string $roleId);
 
     public function update(string|int $id, array $data);
 

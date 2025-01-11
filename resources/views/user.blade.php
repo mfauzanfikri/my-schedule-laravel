@@ -65,7 +65,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
-                                        @if ($user->userRole->name === 'admin')
+                                        @if ($user->role->name === 'admin')
                                             @continue
                                         @endif
                                         <tr>

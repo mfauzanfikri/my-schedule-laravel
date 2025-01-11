@@ -80,8 +80,8 @@ if (!class_exists('EmployeeStatus')) {
     }
 }
 
-if (!class_exists('UserRoles')) {
-    class UserRoles
+if (!class_exists('Roles')) {
+    class Roles
     {
         const ADMIN = "admin";
         const USER = "user";

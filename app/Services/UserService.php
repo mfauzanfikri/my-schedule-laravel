@@ -17,9 +17,9 @@ class UserService
         return $this->userRepository->create($data);
     }
 
-    public function createByUserRole(array $data, string|int $userRoleId)
+    public function createByRole(array $data, string|int $roleId)
     {
-        return $this->userRepository->createByUserRole($data, $userRoleId);
+        return $this->userRepository->createByRole($data, $roleId);
     }
 
     public function update(array $data, $id)

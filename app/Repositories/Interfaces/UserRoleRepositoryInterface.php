@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface UserRoleRepositoryInterface {
+interface RoleRepositoryInterface {
     public function create(array $data);
 
     public function update(string|int $id, array $data);

@@ -2,47 +2,47 @@
 
 namespace App\Repositories;
 
-use App\Models\UserRole;
-use App\Repositories\Interfaces\UserRoleRepositoryInterface;
+use App\Models\Role;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use Exception;
 
-class UserRoleRepository implements UserRoleRepositoryInterface {
+class RoleRepository implements RoleRepositoryInterface {
     public function findAll() {
-        return UserRole::latest()->get();
+        return Role::latest()->get();
     }
 
     public function create(array $data) {
-        return UserRole::create($data);
+        return Role::create($data);
     }
 
     public function update(string|int $id, array $data) {
-        $userRole = UserRole::find($id);
+        $role = Role::find($id);
 
-        if (!$userRole) {
-            throw new Exception('userRole not found');
+        if (!$role) {
+            throw new Exception('role not found');
         }
 
-        $userRole->update($data);
-        return $userRole;
+        $role->update($data);
+        return $role;
     }
 
     public function delete(string|int $id) {
-        $userRole = UserRole::find($id);
+        $role = Role::find($id);
 
-        if (!$userRole) {
-            throw new Exception('userRole not found');
+        if (!$role) {
+            throw new Exception('role not found');
         }
 
-        $userRole->delete();
+        $role->delete();
     }
 
     public function getOne(string|int $id) {
-        $userRole = UserRole::find($id);
+        $role = Role::find($id);
 
-        if (!$userRole) {
-            throw new Exception('userRole not found');
+        if (!$role) {
+            throw new Exception('role not found');
         }
 
-        return $userRole;
+        return $role;
     }
 }

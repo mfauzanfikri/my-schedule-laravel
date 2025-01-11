@@ -2,31 +2,31 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\UserRoleRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 
-class UserRoleService {
+class RoleService {
     public function __construct(
-        protected UserRoleRepositoryInterface $userRoleRepository
+        protected RoleRepositoryInterface $roleRepository
     ) {
     }
 
     public function create(array $data) {
-        return $this->userRoleRepository->create($data);
+        return $this->roleRepository->create($data);
     }
 
     public function update(string|int $id, array $data) {
-        return $this->userRoleRepository->update($id, $data);
+        return $this->roleRepository->update($id, $data);
     }
 
     public function delete(string|int $id) {
-        return $this->userRoleRepository->delete($id);
+        return $this->roleRepository->delete($id);
     }
 
     public function findAll() {
-        return $this->userRoleRepository->findAll();
+        return $this->roleRepository->findAll();
     }
 
     public function getOne(string|int $id) {
-        return $this->userRoleRepository->getOne($id);
+        return $this->roleRepository->getOne($id);
     }
 }

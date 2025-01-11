@@ -6,10 +6,10 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\EmployeePosition;
 use App\Models\User;
-use App\Models\UserRole;
+use App\Models\Role;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use UserRoles;
+use Roles;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder {
@@ -17,17 +17,17 @@ class DatabaseSeeder extends Seeder {
      * Seed the application's database.
      */
     public function run(): void {
-        $userRoles = UserRoles::list();
+        $roles = Roles::list();
 
-        foreach ($userRoles as $role) {
-            UserRole::create([
+        foreach ($roles as $role) {
+            Role::create([
                 'name' => $role,
                 'slug' => Str::slug($role)
             ]);
         }
 
-        $admin = UserRole::where('slug', Str::slug(UserRoles::ADMIN))->first();
-        $user = UserRole::where('slug', Str::slug(UserRoles::USER))->first();
+        $admin = Role::where('slug', Str::slug(Roles::ADMIN))->first();
+        $user = Role::where('slug', Str::slug(Roles::USER))->first();
 
         User::factory()->for($admin)->create();
         User::factory(5)->for($user)->create();

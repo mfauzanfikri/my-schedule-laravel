@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UserRoleService;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\View\View;
 use Throwable;
 
 class UserController extends Controller {
-    public function __construct(protected UserService $userService, protected UserRoleService $userRoleService) {
+    public function __construct(protected UserService $userService, protected RoleService $roleService) {
     }
 
     public function index(): View {
@@ -32,13 +32,13 @@ class UserController extends Controller {
             'password' => 'required|max:10',
         ]);
 
-        $userRole = $this->userRoleService->getOne(2);
+        $role = $this->roleService->getOne(2);
 
-        $this->userService->createByUserRole([
+        $this->userService->createByRole([
             'username' => $request->post('username'),
             'email' => $request->post('email'),
             'password' => $request->post('password')
-        ], $userRole->id);
+        ], $role->id);
 
         return redirect()->back()->with('success', 'User created.');
     }

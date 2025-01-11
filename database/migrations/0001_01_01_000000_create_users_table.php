@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 15);
             $table->string('slug')->unique();
@@ -19,7 +19,7 @@ return new class extends Migration {
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_role_id')->constrained();
+            $table->foreignId('role_id')->constrained();
             $table->string('username', 30)->unique();
             $table->string('email', 50)->unique();
             $table->string('password');
@@ -50,7 +50,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('roles');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
